@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Редактирование{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-light p-4 rounded">
+<h1 class="display-4">Редактирование статьи</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div>
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<form method="POST">
+    <div class="mb-3">
+        <label class="lead" for="title" class="form-label">Заголовок</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="lead" for="content" class="form-label">Текст статьи</label>
+        <textarea class="form-control" id="content" name="content" rows="4" required>{{ post.content }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Сохранить изменения</button>
+    <a href="{{ url_for('posts') }}" class="btn btn-secondary">Отменить</a>
+</form>
+</div>
+{% endblock %}
